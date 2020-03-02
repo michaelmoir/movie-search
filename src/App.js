@@ -2,6 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
+import Form from './SearchForm';
+
+import SearchApi from './SearchApi';
 
 
 const fetchData = async() => {
@@ -26,7 +29,7 @@ class Card extends React.Component {
     	<div className="movie container">
     	  <div className="row">
       	  <div className="col-sm-5">
-      	    <img style={{'width': '100px'}} src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} />
+      	    <img style={{'width': '100%'}} src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} />
       	  </div>
           <div className="col-sm-7 info">
             <div className="title">{movie.title}</div>
@@ -38,47 +41,12 @@ class Card extends React.Component {
   }
 }
 
-const popularAll = `https://api.themoviedb.org/3/discover/movie?api_key=393094cb6915da5c0bdfc18f65b72cf5&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`;
 
 
-const fetchMovies = async () => {
-  const resp = await axios.get(popularAll);
-  return resp.data.results;
-}
-
-class Form extends React.Component {
-	state = { userName: '' };
-	handleSubmit = async (event) => {
-  	event.preventDefault();
-    
-    this.props.onSubmit(await fetchMovies());
-    this.setState({ userName: '' });
-  };
-  
-  
-  
-
-  
-  
-
-	render() {
-  	return (
-    	<form onSubmit={this.handleSubmit}>
-    	  <input
-          type="text"
-          value={this.state.userName}
-          onChange={event => this.setState({ userName: event.target.value })}
-          placeholder="GitHub username"
-          required
-        />
-        <button>Add card</button>
-    	</form>
-    );
-  }
-}
 
 class App extends React.Component {
   state = {
+    pageNum: 1,
     movies: [],
   };
   addNewmovie = (movieData) => {
@@ -88,7 +56,7 @@ class App extends React.Component {
     }));
   };
   componentDidMount(){
-    const movies =  fetchMovies().then((resp)=>{
+    const movies =  SearchApi.fetchMovies({pageNum:this.state.pageNum}).then((resp)=>{
          this.addNewmovie(resp);
     });
 
@@ -96,7 +64,7 @@ class App extends React.Component {
 	render() {
   	return (
     	<>
-    	  <div className="container">
+    	  <div className="container-fluid">
       	  <div className="row">
             <div className="col-sm-12 col-lg-3 leftPanel">
               <Form onSubmit={this.addNewmovie} />
