@@ -19,6 +19,7 @@ code {
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+  height: 50px;
 }
 
 .leftPanel{
@@ -40,10 +41,16 @@ code {
   margin: 25px 5px;
 }
 
-
+.moviecard {
+  max-width: 500px;
+  
+}
   
 // Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) {
-  
+@media (max-width: 576px) {
+  .moviecard {
+    width: 40rem;
+    
+  }
 
 }
