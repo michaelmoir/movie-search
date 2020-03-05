@@ -14,7 +14,7 @@ class Form extends React.Component {
   	return (
     	<form onSubmit={this.handleSubmit}>
     	  <div className="row fixed-panel">
-      	  <div className="col-9">
+      	  <div className="col-8">
         	  <input
               type="text"
               value={this.state.searchPhrase}
@@ -24,7 +24,7 @@ class Form extends React.Component {
               className="form-control"
             />
           </div>
-          <div className="col-3">
+          <div className="col-4">
             <button className="btn btn-primary">Search</button>
           </div>
       	</div>
