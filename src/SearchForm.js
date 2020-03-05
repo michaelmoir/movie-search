@@ -1,20 +1,20 @@
 import React from 'react';
-import SearchApi from './SearchApi';
+import DataServiceApi from './DataServiceApi';
 
 class Form extends React.Component {
 	state = { searchPhrase: '' };
 	handleSubmit = async (event) => {
   	event.preventDefault();
     
-    this.props.onSubmit(await SearchApi.searchMovies({query:this.state.searchPhrase}));
+    this.props.onSubmit(await DataServiceApi.searchMovies({query:this.state.searchPhrase}));
     //this.setState({ searchPhrase: '' });
   };
 
 	render() {
   	return (
     	<form onSubmit={this.handleSubmit}>
-    	  <div className="row">
-      	  <div className="col-sm-8">
+    	  <div className="row fixed-panel">
+      	  <div className="col-9">
         	  <input
               type="text"
               value={this.state.searchPhrase}
@@ -24,7 +24,7 @@ class Form extends React.Component {
               className="form-control"
             />
           </div>
-          <div className="col-sm-4">
+          <div className="col-3">
             <button className="btn btn-primary">Search</button>
           </div>
       	</div>
